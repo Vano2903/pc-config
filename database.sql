@@ -1,0 +1,74 @@
+CREATE TABLE IF NOT EXISTS users(
+    ID INT auto_increment NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(320) NOT NULL,
+    password VARCHAR(32) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS cart(
+    ID INT auto_increment NOT NULL,
+    userID INT NOT NULL,
+    cartStatus VARCHAR(20) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (userID) REFERENCES users(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS cartContents(
+    ID INT auto_increment NOT NULL,
+    cartID INT NOT NULL,
+    componentID INT NOT NULL,
+    quantity INT DEFAULT 1,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (cartID) REFERENCES cart(ID),
+    FOREIGN KEY (componentID) REFERENCES components(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS components(
+    ID INT auto_increment NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    categoryID INT NOT NULL,
+    brandID INT NOT NULL,
+    description MEDIUMTEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    discountPercentage INT DEFAULT 0,
+    availability INT DEFAULT 1,
+    reviewUrl VARCHAR(100) DEFAULT NULL,
+    image VARCHAR(100) DEFAULT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (categoryID) REFERENCES categories(ID),
+    FOREIGN KEY (brandID) REFERENCES brands(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS categories(
+    ID INT auto_increment NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS brands(
+    ID INT auto_increment NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS componentsInfo(
+    ID INT auto_increment NOT NULL,
+    componentID INT NOT NULL,
+    key VARCHAR(50) NOT NULL,
+    value VARCHAR(50) NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (componentID) REFERENCES components(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS offers(
+    ID INT auto_increment NOT NULL,
+    image VARCHAR(100) NOT NULL,
+    componentID INT NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (componentID) REFERENCES components(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+CREATE TABLE IF NOT EXISTS news(
+    ID INT auto_increment NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description MEDIUMTEXT NOT NULL,
+    image VARCHAR(100) NOT NULL,
+    link VARCHAR(100) NOT NULL,
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;

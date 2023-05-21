@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <title>Catalogo</title>
+    <style type="text/css">
+    html{
+        overflow-x: hidden;
+      }
+      body{
+        margin-left: -0.1%;
+        margin-right: -0.1%;
+        margin-top: -0.1%;
+        font-family: Arial, sans-serif;
+        color: white;
+        background-color: black;
+      }
+      .box{
+        width: 100%;
+        display: inline-flex;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        background-color: black;
+        
+      }
+      li{
+        display: inline;
+        margin: 6%; 
+               
+      }
+      ul{ 
+        width: 100%;
+        margin-top: 6%;   
+      }
+      img{
+        width: 12%;
+        height: 12%;
+      }
+      a{
+        text-decoration: none;
+        font-weight: bold;
+        
+      }
+      .pc{
+        margin-left: 20%;
+        margin-right: 20%;
+      }
+      .pc a{
+        padding: 5%;
+      }
+      .menu{
+        color: red; 
+      }
+      .menu:hover{
+        color: orangered;
+      }
+      #selezionato{
+        color: orange;
+      }
+       #destra{
+        width: 15%;
+        height: 100%;
+        float: left;
+      }
+      #sinistra{
+        width: 15%;
+        height: 100%;
+        float: right;
+      }
+      h1{
+        text-align: center;
+      }
+      .confronta{
+        width: 25%;
+        display: inline-block;
+        margin: 15px;
+      }
+       .confronta img{
+        width: 70%;
+        height: 30%;
+        margin-bottom: 5px;
+      }
+      .confronta-section{
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+      <div class="box">
+       <img src="immagini/LOGO.png">
+        <ul>
+          <li><a href="home_page.html" class="menu">Home</a></li>
+          <li><a href="Configuratore.html" class="menu">Configuratore</a></li>
+          <li><a href="catalogo.html" class="menu" id="selezionato">Catalogo</a></li>
+          <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
+          <li><a href="login.html" class="menu">Login</a></li>
+        </ul>
+      </div>
+      <img src="immagini/kepp-calm.jpg" id="destra">
+      <img src="immagini/kepp-calm.jpg" id="sinistra">
+      <div class="confronta-section">
+      <h1>Catalogo Componenti PC</h1>
+      <div class="confronta">
+        <a href="processore_catalogo.html">
+        <img src="immagini/processore.jpg" alt="Immagine di copertina per il confronta"><br>
+        Processori</a>
+      </div>
+      <div class="confronta">
+        <a href="scheda_video_catalogo.html">
+        <img src="immagini/Scheda_video.jpg" alt="Immagine di copertina per il confronta"><br>
+        Schede video</a>
+      </div>
+      <div class="confronta">
+        <a href="scheda_madre_catalogo.html">
+        <img src="immagini/scheda_madre.jpg" alt="Immagine di copertina per il confronta"><br>
+        Schede madri</a>
+      </div>
+      <div class="confronta">
+        <a href="alimentatore_catalogo.html">
+        <img src="immagini/alimentatore.jpg" alt="Immagine di copertina per il confronta"><br>
+        Alimentatori</a>
+      </div>
+      <div class="confronta">
+        <a href="dissipatore_catalogo.html">
+        <img src="immagini/dissipatore.jpg" alt="Immagine di copertina per il confronta"><br>
+        Dissipatori</a>
+      </div>
+      <div class="confronta">
+        <a href="case_catalogo.html">
+        <img src="immagini/case.jpg" alt="Immagine di copertina per il confronta"><br>
+        Case</a>
+      </div>
+  </body>
+</html>

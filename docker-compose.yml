@@ -1,0 +1,24 @@
+version: '3'
+services:
+    php:
+        build:
+            context: ./app
+            dockerfile: Dockerfile
+        volumes: 
+        - ./app:/var/www/html/
+        ports:
+        - 9000:80
+
+    db:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            # MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'root'
+            MYSQL_DATABASE: 'pcbuilder'
+        volumes:
+            - ./_db:/var/lib/mysql
+            - ./database.sql:/docker-entrypoint-initdb.d/tables.sql
+        ports:
+            - 3306:3306
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
