@@ -1,85 +1,17 @@
 <html>
   <head>
     <title>Login</title>
-    <style type="text/css">
-        html{
-        overflow-x: hidden;
-      }
-      body{
-        margin-left: -0.1%;
-        margin-right: -0.1%;
-        margin-top: -0.1%;
-        font-family: Arial, sans-serif;
-        color: white;
-        background-color: black;
-      }
-      .box{
-        width: 100%;
-        display: inline-flex;
-        flex-wrap: nowrap;
-        justify-content: space-evenly;
-        background-color: black;
-        font-weight: bold;
-
-      }
-      li{
-        display: inline;
-        margin: 6%; 
-                
-      }
-      ul{ 
-        width: 100%;
-        margin-top: 6%;   
-      }
-      img{
-        width: 12%;
-        height: 12%;
-      }
-      form{
-        margin-left: 40%;
-        margin-right: 40%;
-        margin-top: 10%;
-        background-color: red;
-        text-align: center;
-        padding: 1%;
-        border-radius: 5%;
-      }
-      input{
-        margin-top: 5%;
-      }
-      a{
-        text-decoration: none;
-      }
-      .menu{
-        color: red; 
-      }
-      .menu:hover{
-        color: orangered;
-      }
-      #selezionato{
-        color: orange;
-      }
-       #destra{
-        width: 15%;
-        height: 100%;
-        float: left;
-      }
-      #sinistra{
-        width: 15%;
-        height: 100%;
-        float: right;
-      }
-    </style>
+    <link rel="stylesheet" href="./css/default.css">
   </head>
   <body>
       <div class="box">
        <img src="immagini/LOGO.png">
         <ul>
-          <li><a href="home_page.html" class="menu">Home</a></li>
+          <li><a href="home_page.php" class="menu">Home</a></li>
           <li><a href="Configuratore.html" class="menu">Configuratore</a></li>
-          <li><a href="catalogo.html" class="menu">Catalogo</a></li>
+          <li><a href="catalogo.php" class="menu">Catalogo</a></li>
           <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
-          <li><a href="login.html" class="menu">Login</a></li>
+          <li><a href="login.php" class="menu">Login</a></li>
         </ul>
       </div>
       <img src="immagini/kepp-calm.jpg" id="destra">

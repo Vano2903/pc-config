@@ -1,181 +1,137 @@
 <html>
-  <head>
-    <title>Configuratore</title>
-    <style type="text/css">
-    html{
-        overflow-x: hidden;
-      }
-      body{
-        margin-left: -0.1%;
-        margin-right: -0.1%;
-        margin-top: -0.1%;
-        font-family: Arial, sans-serif;
-        color: white;
-        background-color: black;
-      }
-      .box{
-        width: 100%;
-        display: inline-flex;
-        flex-wrap: nowrap;
-        justify-content: space-evenly;
-        background-color: black;
-        font-weight: bold;
-      }
-      li{
-        display: inline;
-        margin: 6%;      
-      }
-      ul{ 
-        width: 100%;
-        margin-top: 6%;   
-      }
-      img{
-        width: 12%;
-        height: 12%;
-      }
-      a{
-        text-decoration: none;
-      }
-      .menu{
-        color: red; 
-      }
-      .menu:hover{
-        color: orangered;
-      }
-      #selezionato{
-        color: orange;
-      }
-       #destra{
-        width: 15%;
-        height: 100%;
-        float: left;
-      }
-      #sinistra{
-        width: 15%;
-        height: 100%;
-        float: right;
-      }
-      .rettangolo {
-        height: 200px;
-        width: 200px;
-        display: inline-block;
-        margin: 20px;
-        text-align: center;
-      }
 
-      .rettangolo img {
-        height: 250px;
-        width: 250px;
-        padding-block-end: 40px;
-      }
+<head>
+  <title>Configuratore</title>
+  <link rel="stylesheet" href="./css/default.css">
 
-      .rettangolo p {
-        text-align: center;
-        font-weight: bold;
-        margin-top: 10px;
-      }
+  <style type="text/css">
+    .rettangolo {
+      height: 200px;
+      width: 200px;
+      display: inline-block;
+      margin: 20px;
+      text-align: center;
+    }
 
-      .rettangolo select {
-        text-align: center;
-        background-color: white;
-        width: 80%;
-        margin: 10px auto;
-      }
+    .rettangolo img {
+      height: 250px;
+      width: 250px;
+      padding-block-end: 40px;
+    }
 
-      .rettangolo span {
-        text-align: center;
-        display: none;
-      }
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f5f5f5;
-        font-family: Arial, sans-serif;
-      }
-      h2 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 30px;
-        margin-bottom: 10px;
-      }
-      label {
-        display: block;
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 5px;
-        text-align: center;
-      }
-      select {
-        display: block;
-        width: 60%;
-        padding: 10px;
-        margin-left: 20%;
-        border: 1px solid ;
-        border-radius: 5px;
-        font-size: 16px;
-        margin-bottom: 1%;
-      }
-    </style>
-  </head>
-  <body>
-      <div class="box">
-       <img src="immagini/LOGO.png">
-        <ul>
-          <li><a href="home_page.html" class="menu">Home</a></li>
-          <li><a href="Configuratore.html" class="menu" id="selezionato">Configuratore</a></li>
-          <li><a href="catalogo.html" class="menu">Catalogo</a></li>
-          <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
-          <li><a href="login.html" class="menu">Login</a></li>
-        </ul>
-      </div>
-        <img src="immagini/kepp-calm.jpg" id="destra">
-        <img src="immagini/kepp-calm.jpg" id="sinistra">
-        <br/><br/><br/>
-      <form>
-        <label for="cpu">Processore:</label>
-        <select id="cpu">
-          <option value="">Seleziona un processore</option>
-        </select>
-        <br>
-        <label for="motherboard">Scheda madre:</label>
-        <select id="motherboard">
-          <option value="">Seleziona una scheda madre</option>
-        </select>
-        <br>
-        <label for="ram">Memoria RAM:</label>
-        <select id="ram">
-          <option value="">Seleziona una memoria RAM</option>
-        </select>
-        <br>
-        <label for="gpu">Scheda video:</label>
-        <select id="gpu">
-          <option value="">Seleziona una scheda video</option>
-        </select>
-        <br>
-        <label for="storage">Disco rigido / SSD:</label>
-        <select id="storage">
-          <option value="">Seleziona un disco rigido o SSD</option>
-        </select>
-        <br>
-        <label for="storage">Case:</label>
-        <select id="storage">
-          <option value="">Seleziona un case</option>
-        </select>
-        <br>
-        <label for="storage">Dissipatore:</label>
-        <select id="storage">
-          <option value="">Seleziona un dissipatore</option>
-        </select>
-        <br>
-        <label for="storage">Alimentatore:</label>
-        <select id="storage">
-          <option value="">Seleziona un alimentatore</option>
-        </select>
-        <br>
-        <label>Totale:</label>
-        <label id="total-price">0.00 €</label>
-      </form>
+    .rettangolo p {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
 
-  </body>
+    .rettangolo select {
+      text-align: center;
+      background-color: white;
+      width: 80%;
+      margin: 10px auto;
+    }
+
+    .rettangolo span {
+      text-align: center;
+      display: none;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    select {
+      display: block;
+      width: 60%;
+      padding: 10px;
+      margin-left: 20%;
+      border: 1px solid;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 1%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <img src="immagini/LOGO.png">
+    <ul>
+      <li><a href="home_page.php" class="menu">Home</a></li>
+      <li><a href="Configuratore.html" class="menu" id="selezionato">Configuratore</a></li>
+      <li><a href="catalogo.php" class="menu">Catalogo</a></li>
+      <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
+      <li><a href="login.php" class="menu">Login</a></li>
+    </ul>
+  </div>
+  <img src="immagini/kepp-calm.jpg" id="destra">
+  <img src="immagini/kepp-calm.jpg" id="sinistra">
+  <br /><br /><br />
+  <form>
+    <label for="cpu">Processore:</label>
+    <select id="cpu">
+      <option value="">Seleziona un processore</option>
+    </select>
+    <br>
+    <label for="motherboard">Scheda madre:</label>
+    <select id="motherboard">
+      <option value="">Seleziona una scheda madre</option>
+    </select>
+    <br>
+    <label for="ram">Memoria RAM:</label>
+    <select id="ram">
+      <option value="">Seleziona una memoria RAM</option>
+    </select>
+    <br>
+    <label for="gpu">Scheda video:</label>
+    <select id="gpu">
+      <option value="">Seleziona una scheda video</option>
+    </select>
+    <br>
+    <label for="storage">Disco rigido / SSD:</label>
+    <select id="storage">
+      <option value="">Seleziona un disco rigido o SSD</option>
+    </select>
+    <br>
+    <label for="storage">Case:</label>
+    <select id="storage">
+      <option value="">Seleziona un case</option>
+    </select>
+    <br>
+    <label for="storage">Dissipatore:</label>
+    <select id="storage">
+      <option value="">Seleziona un dissipatore</option>
+    </select>
+    <br>
+    <label for="storage">Alimentatore:</label>
+    <select id="storage">
+      <option value="">Seleziona un alimentatore</option>
+    </select>
+    <br>
+    <label>Totale:</label>
+    <label id="total-price">0.00 €</label>
+  </form>
+
+</body>
+
 </html>
