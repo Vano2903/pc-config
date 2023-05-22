@@ -3,17 +3,18 @@ CREATE TABLE IF NOT EXISTS categories(
     ID INT auto_increment NOT NULL,
     name VARCHAR(50) NOT NULL,
     defaultImage VARCHAR(100) NOT NULL,
+    isConfigurationRequired INT DEFAULT 0,
     PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
-INSERT INTO categories (name, defaultImage)
-VALUES ('Processori', 'cpu.png'),
-    ('Schede Madri', 'motherboard.png'),
-    ('Schede Video', 'gpu.png'),
-    ('Memorie RAM', 'ram.png'),
-    ('Alimentatori', 'psu.png'),
-    ('Archiviazione', 'storage.png'),
-    ('Case', 'case.png'),
-    ('Dissipatori', 'cooler.png');
+INSERT INTO categories (name, defaultImage, isConfigurationRequired)
+VALUES ('Processori', 'cpu.png', 1),
+    ('Schede Madri', 'motherboard.png', 1),
+    ('Schede Video', 'gpu.png', 1),
+    ('Memorie RAM', 'ram.png', 1),
+    ('Alimentatori', 'psu.png', 1),
+    ('Archiviazione', 'storage.png', 1),
+    ('Case', 'case.png', 1),
+    ('Dissipatori', 'cooler.png', 1);
 ---
 CREATE TABLE IF NOT EXISTS brands(
     ID INT auto_increment NOT NULL,
@@ -323,8 +324,7 @@ CREATE TABLE IF NOT EXISTS cart(
     userID INT NOT NULL,
     cartStatus VARCHAR(20) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    PRIMARY KEY(ID),
-    FOREIGN KEY (userID) REFERENCES users(ID)
+    PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 ---
 CREATE TABLE IF NOT EXISTS cartContents(

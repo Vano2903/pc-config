@@ -78,7 +78,7 @@
     <img src="immagini/LOGO.png">
     <ul>
       <li><a href="home_page.php" class="menu">Home</a></li>
-      <li><a href="Configuratore.html" class="menu" id="selezionato">Configuratore</a></li>
+      <li><a href="configuratore.php" class="menu" id="selezionato">Configuratore</a></li>
       <li><a href="catalogo.php" class="menu">Catalogo</a></li>
       <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
       <li><a href="login.php" class="menu">Login</a></li>
@@ -86,52 +86,45 @@
   </div>
   <img src="immagini/kepp-calm.jpg" id="destra">
   <img src="immagini/kepp-calm.jpg" id="sinistra">
-  <br /><br /><br />
-  <form>
-    <label for="cpu">Processore:</label>
-    <select id="cpu">
-      <option value="">Seleziona un processore</option>
-    </select>
-    <br>
-    <label for="motherboard">Scheda madre:</label>
-    <select id="motherboard">
-      <option value="">Seleziona una scheda madre</option>
-    </select>
-    <br>
-    <label for="ram">Memoria RAM:</label>
-    <select id="ram">
-      <option value="">Seleziona una memoria RAM</option>
-    </select>
-    <br>
-    <label for="gpu">Scheda video:</label>
-    <select id="gpu">
-      <option value="">Seleziona una scheda video</option>
-    </select>
-    <br>
-    <label for="storage">Disco rigido / SSD:</label>
-    <select id="storage">
-      <option value="">Seleziona un disco rigido o SSD</option>
-    </select>
-    <br>
-    <label for="storage">Case:</label>
-    <select id="storage">
-      <option value="">Seleziona un case</option>
-    </select>
-    <br>
-    <label for="storage">Dissipatore:</label>
-    <select id="storage">
-      <option value="">Seleziona un dissipatore</option>
-    </select>
-    <br>
-    <label for="storage">Alimentatore:</label>
-    <select id="storage">
-      <option value="">Seleziona un alimentatore</option>
-    </select>
-    <br>
-    <label>Totale:</label>
-    <label id="total-price">0.00 €</label>
-  </form>
+  <br/><br/><br/>
+  <?php
+  session_start();
+  include "config.php";
+  $sql = "SELECT * FROM categories";
+  $result = $con->query($sql);
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      echo "<label for='" . $row['name'] . "'>" . $row['name'].": ";
+      if ($row['isConfigurationRequired'] == 1){
+        echo "<a style='color: red;'>*</a>";
+      }
+      echo "</label>";
+      echo "<select id='" . $row['name'] . "'>";
+      echo "<option value='0'>" . $row['name'] . "</option>";
+      $sql2 = "SELECT * FROM components WHERE categoryID=" . $row['ID'];
+      $result2 = $con->query($sql2);
+      if ($result->num_rows > 0) {
+        while ($row2 = $result2->fetch_assoc()) {
+          echo "<option value='" . $row2['ID'] . "'>" . $row2['name'] . "</option>";
+        }
+      }
+      echo "</select>";
+    }
+    //add to cart button with some style
+    echo "<button style='
+      display: block; 
+      margin: 0 auto; 
+      padding: 10px; 
+      background-color: #4CAF50; 
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    '>Aggiungi al carrello</button>";
+  }
 
+  ?>
 </body>
 
 </html>

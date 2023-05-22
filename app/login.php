@@ -4,14 +4,21 @@
     <link rel="stylesheet" href="./css/default.css">
   </head>
   <body>
+  <?php
+    session_start();
+    if(isset($_SESSION['email'])){
+      echo "<script type='text/javascript'>location.href = './user.php';</script>";
+      exit();
+    }
+  ?>
       <div class="box">
        <img src="immagini/LOGO.png">
         <ul>
           <li><a href="home_page.php" class="menu">Home</a></li>
-          <li><a href="Configuratore.html" class="menu">Configuratore</a></li>
+          <li><a href="configuratore.php" class="menu">Configuratore</a></li>
           <li><a href="catalogo.php" class="menu">Catalogo</a></li>
           <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
-          <li><a href="login.php" class="menu">Login</a></li>
+          <li><a href='login.php' class='menu'>Login</a></li>
         </ul>
       </div>
       <img src="immagini/kepp-calm.jpg" id="destra">
@@ -36,15 +43,8 @@
     }
     </script>
     <?php
-    
-    $host="localhost";
-    $username="root";
-    $password="root";
-    $db_nome="pcbuilder";
-    mysql_connect($host, $username, $password) or die('Impossibile connettersi al
-    server: ' . mysql_error());
-    mysql_select_db($db_nome) or die ('Accesso al database non riuscito: '
-    . mysql_error());
+    include "config.php";
+
     // acquisizione dati dal form HTML
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -56,19 +56,20 @@
     $password = mysql_real_escape_string($password);
     $passmd5 = md5($password);
     // lettura della tabella utenti
-    $sql="SELECT * FROM $tab_nome WHERE Email='$email' AND Password='$passmd5'";
-    $result=mysql_query($sql);
-    $conta=mysql_num_rows($result);
-    if($conta==1){
+    $sql = "SELECT * FROM users WHERE email=? AND password=?"
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("ss", $email, $passmd5);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows == 0) {
+        echo "Identificazione non riuscita: nome utente o password errati <br />";
+        exit();
+    }
+
     session_start();
-    $_SESSION['email'] = $email;
-    $_SESSION['password'] = $passmd5;
+    $_SESSION['logged'] = true;
+    $_SESSION['ID'] = $result['ID'];
     header("Location: loginok.php");
-    }
-    else {
-    echo "Identificazione non riuscita: nome utente o password errati <br />";
-    echo "Torna a pagina di <a href=\"login.html\">login</a>";
-    }
     ?>
   </body>
 </html>

@@ -1,0 +1,24 @@
+- pagina di registrazione
+    - crea l'utente e lo logga in automatico
+
+- pagina di login
+    - logga l'utente
+
+- pagina di logout
+
+- pagina configuratore
+    - mostra i componenti disponibili (se non è disponibilie sbarra il componente)
+    - crea una configurazione (setta sul database un id univoco per la configurazione)
+    - condividi la configurazione (in base all'id univoco)
+    - aggiungi al carrello solo se l'utente è loggato
+
+- pagina carrello
+    - mostra i componenti selezionati
+    - mostra il prezzo totale
+
+- pagina admin
+    - mostra tutte le configurazioni create (download pdf con la configurazione e l'utente che l'ha creata)
+    - mostra tutti gli utenti registrati
+    - aggiorna news e offerte
+    - crud componenti (carica immagini)
+    - crud utenti

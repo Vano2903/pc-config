@@ -28,7 +28,7 @@
        <img src="immagini/LOGO.png">
         <ul>
           <li><a href="home_page.php" class="menu" id="selezionato">Home</a></li>
-          <li><a href="Configuratore.html" class="menu">Configuratore</a></li>
+          <li><a href="configuratore.php" class="menu">Configuratore</a></li>
           <li><a href="catalogo.php" class="menu">Catalogo</a></li>
           <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
           <li><a href="login.php" class="menu">Login</a></li>
