@@ -1,10 +1,10 @@
-- pagina di registrazione
-    - crea l'utente e lo logga in automatico
+- pagina di registrazione x
+    - crea l'utente e lo logga in automatico x
 
-- pagina di login
-    - logga l'utente
+- pagina di login x
+    - logga l'utente x
 
-- pagina di logout
+- pagina di logout x
 
 - pagina configuratore
     - mostra i componenti disponibili (se non è disponibilie sbarra il componente)

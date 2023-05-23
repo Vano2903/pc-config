@@ -1,11 +1,12 @@
 <?php
     session_start();
     include "session.php";
-    include "config.php";
     if (!isUserLoggedIn()) {
         header("Location: login.php");
         exit();
     }
+    
+    include "config.php";
     $id = $_SESSION['ID'];
     $sql = "SELECT * FROM users WHERE ID=?";
     $stmp = $con->prepare($sql);
@@ -30,7 +31,6 @@
             $carts[] = $row;
         }
     }
-
 ?>
 <html>
 
@@ -88,13 +88,9 @@
 <body>
     <div class="box">
         <img src="immagini/LOGO.png">
-        <ul>
-        <li><a href="home_page.php" class="menu">Home</a></li>
-        <li><a href="configuratore.php" class="menu">Configuratore</a></li>
-        <li><a href="catalogo.php" class="menu">Catalogo</a></li>
-        <li><a href="user.php" class="menu" id="selezionato">User</a></li>
-        <li><a href="logout.php" class="menu">Logout</a></li>
-        </ul>
+        <?php
+          include "navbar.php";
+        ?>
     </div>
     <div class="center">
         <h1>Benvenuto <?php echo $username; ?></h1>
@@ -109,7 +105,10 @@
             echo "<ul>";
             foreach ($carts as $cart) { ?>
                 <li>
-                    <a href="cart.php?id=<?php echo $cart['ID']; ?>">Carrello <?php echo $cart['ID']; ?></a>
+                    <a href="cart.php?id=<?php echo $cart['ID']; ?>">Carrello <?php
+                      echo $cart['ID'];
+                      echo " (".$cart["cartStatus"].")";
+                    ?></a>
                 </li>
             <?php 
             } 

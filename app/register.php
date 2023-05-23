@@ -1,15 +1,13 @@
 <?php
   session_start();
-  if (isset($_SESSION["logged"]) && ($_SESSION["logged"] == true)) {
-    //già loggato
+  include "session.php";
+  if(isUserLoggedIn()){
     header("Location: home_page.php");
     exit();
   }
 
   include "config.php";
-  if (!isset($_POST["username"]) || !isset($_POST["email"]) || !isset($_POST["password"])) {
-    echo "ricevuto nulla. quit";
-  }else{
+  if (isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])) {
     $username = $_POST["username"];
     filter_var($username, FILTER_SANITIZE_STRING);
     
@@ -37,15 +35,13 @@
     //register user
     $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
     $stmp = $con->prepare($sql);
-    echo $email;
     $stmp->bind_param("sss", $username, $email, $passmd5);
     $stmp->execute();
     // $result = $stmp->get_result();
     $id = $stmp->insert_id;
-    if ($id) {
+    if (isset($id)) {
       $_SESSION['logged'] = true;
       $_SESSION['ID'] = $id;
-      header("Location: loginok.php");
       echo "Registrazione avvenuta con successo";
       //redirect to user page
     } else {
@@ -75,20 +71,9 @@
 <body>
   <div class="box">
     <img src="immagini/LOGO.png">
-    <ul>
-      <li><a href="home_page.php" class="menu">Home</a></li>
-      <li><a href="Configuratore.php" class="menu">Configuratore</a></li>
-      <li><a href="catalogo.php" class="menu">Catalogo</a></li>
-      <li><a href="pagina_di_presentazione.php" class="menu">Chi siamo</a></li>
-      <?php
-      include "session.php";
-      if (isUserLoggedIn()) {
-        echo "<li><a href='user.php' class='menu'>User</a></li>";
-      }else{
-        echo "<li><a href='login.php' class='menu'>Login</a></li>";
-      }
-      ?>
-    </ul>
+    <?php
+      include "navbar.php";
+    ?>
   </div>
   <img src="immagini/kepp-calm.jpg" id="destra">
   <img src="immagini/kepp-calm.jpg" id="sinistra">

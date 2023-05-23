@@ -323,13 +323,14 @@ CREATE TABLE IF NOT EXISTS cart(
     ID INT auto_increment NOT NULL,
     userID INT NOT NULL,
     cartStatus VARCHAR(20) NOT NULL,
+    configurationID INT NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 ---
-CREATE TABLE IF NOT EXISTS cartContents(
+CREATE TABLE IF NOT EXISTS configContents(
     ID INT auto_increment NOT NULL,
-    cartID INT NOT NULL,
+    configurationID INT NOT NULL,
     componentID INT NOT NULL,
     quantity INT DEFAULT 1,
     PRIMARY KEY (ID)
@@ -358,3 +359,9 @@ VALUES (
         "immagini/4070.jpg",
         "https://www.tomshw.it/hardware/la-geforce-rtx-4070-potrebbe-arrivare-ad-aprile/"
     );
+CREATE TABLE IF NOT EXISTS configurations(
+    ID INT auto_increment NOT NULL,
+    uuid VARCHAR(36) NOT NULL,
+    UNIQUE(uuid),
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
