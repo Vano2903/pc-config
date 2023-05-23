@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 
 <head>
@@ -80,9 +83,15 @@
       <li><a href="home_page.php" class="menu">Home</a></li>
       <li><a href="configuratore.php" class="menu" id="selezionato">Configuratore</a></li>
       <li><a href="catalogo.php" class="menu">Catalogo</a></li>
-      <li><a href="pagina_di_presentazione.html" class="menu">Chi siamo</a></li>
-      <li><a href="login.php" class="menu">Login</a></li>
-    </ul>
+      <li><a href="pagina_di_presentazione.php" class="menu">Chi siamo</a></li>
+      <?php
+      include "session.php";
+      if (isUserLoggedIn()) {
+        echo "<li><a href='user.php' class='menu'>User</a></li>";
+      }else{
+        echo "<li><a href='login.php' class='menu'>Login</a></li>";
+      }
+      ?>    </ul>
   </div>
   <img src="immagini/kepp-calm.jpg" id="destra">
   <img src="immagini/kepp-calm.jpg" id="sinistra">
@@ -110,8 +119,10 @@
       }
       echo "</select>";
     }
-    //add to cart button with some style
-    echo "<button style='
+    
+    if (isset($_SESSION['logged'])){
+      //add to cart button only if logged in
+      echo "<button style='
       display: block; 
       margin: 0 auto; 
       padding: 10px; 
@@ -122,6 +133,7 @@
       font-size: 16px;
       cursor: pointer;
     '>Aggiungi al carrello</button>";
+    }
   }
 
   ?>
