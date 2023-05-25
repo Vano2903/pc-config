@@ -98,7 +98,7 @@
   </form>
   <script type="text/javascript">
     function showPassword() {
-      var passwordInput = document.getElementById("password");
+      var passwordInput = document.getElementById("password1");
       if (passwordInput.type === "password") {
         passwordInput.type = "text";
       } else {
