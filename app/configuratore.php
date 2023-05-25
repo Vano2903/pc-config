@@ -167,7 +167,7 @@ if(isset($_GET["clean-config"])){
       echo "<script>console.log('".$confID."');</script>";
       //get all components of the configuration
       //set all matching options to selected
-      $sql="SELECT * FROM configContents WHERE configurationID=" . $confID;
+      $sql="SELECT * FROM configContents WHERE configID=" . $confID;
       $result = $con->query($sql);
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {

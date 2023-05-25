@@ -7,9 +7,7 @@
   }
   include "config.php";
 
-  if (!isset($_POST["email"]) || !isset($_POST["password"])) {
-    echo "ci sono dei campi mancanti, impossibile effettuare il login";
-  }else{
+  if (isset($_POST["email"]) && isset($_POST["password"])) {
     $username = $_POST["username"];
     filter_var($username, FILTER_SANITIZE_STRING);
     
@@ -44,6 +42,17 @@
   <head>
     <title>Login</title>
     <link rel="stylesheet" href="./css/default.css">
+    <style>
+      form {
+        margin-left: 40%;
+        margin-right: 40%;
+        margin-top: 10%;
+        background-color: red;
+        text-align: center;
+        padding: 1%;
+        border-radius: 5%;
+      }
+    </style>
   </head>
   <body>
   
@@ -63,8 +72,8 @@
         <input type="password" id="password" name="password"><br>
         <input type="checkbox" onclick="showPassword()">Mostra password<br>
         <input type="submit" value="login">
+        <button onclick="window.location.href='register.php'">Registrati</button>
       </form>
-      <button onclick="window.location.href='register.php'">Registrati</button>
       <script type="text/javascript">
     function showPassword() {
       var passwordInput = document.getElementById("password");
