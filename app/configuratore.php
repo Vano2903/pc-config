@@ -138,7 +138,7 @@ if(isset($_GET["clean-config"])){
       echo "<h1><b>Nessuna categoria trovata, contattare l'amministratore del sito.</b></h1>";
     }
 
-    if(isset($_SESSION['config-id']) || $_GET['cid']){
+    if(isset($_SESSION['config-id']) || isset($_GET['cid'])){
       $uuid = "";
       if(isset($_GET['cid'])){
         $uuid=$_GET['cid'];
