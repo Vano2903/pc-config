@@ -28,7 +28,6 @@ if($currentPage == "pagina_di_presentazione.php"){
 
 if (isUserLoggedIn()) {
     echo "<li><a href='user.php' class='menu'>User</a></li>";
-    echo "<li><a href='logout.php' class='menu'>Logout</a></li>";
 }else{
     echo "<li><a href='login.php' class='menu'>Login</a></li>";
 }

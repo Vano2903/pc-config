@@ -115,7 +115,8 @@
         }
         ?>
         </ul>
-    </div>
+        <button onclick="location.href = 'logout.php';" style="background-color: #e83131; color: white; border: none; padding: 10px; border-radius: 5px;">Logout</button>
+      </div>
 
 </body>
 
