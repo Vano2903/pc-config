@@ -76,7 +76,7 @@ session_start();
     $row = $result->fetch_assoc();
     $availability = $row['availability'];
     echo "<h1>" . $row['name'] . "</h1><br><hr><br>";
-    echo "<div><img src='" . $row['defaultImage'] . "' alt='".$row['name']."'></div>";
+    echo "<div><img src='" . $row['image'] . "' alt='".$row['name']."'></div>";
     echo "<br>";
     echo "<div><p>Marca: " . $row['brandName'] . "</p></div>";
     echo "<div><p>Descrizione: " . $row['description'] . "</p></div>";

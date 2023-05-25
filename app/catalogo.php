@@ -83,7 +83,7 @@ session_start();
         while ($row = $result->fetch_assoc()) {
           echo "<div class='confronta'>";
           echo "<a href='./scheda_prodotto.php?id=" . $row['ID'] . "'>";
-          echo "<img src='" . $row['defaultImage'] . "' alt='".$row['name']."'>";
+          echo "<img src='" . $row['image'] . "' alt='".$row['name']."'>";
           echo "<br>";
           echo $row['name'] . "</a>";
           echo "</div>";
