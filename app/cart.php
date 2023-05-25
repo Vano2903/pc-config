@@ -119,7 +119,7 @@
                         echo "<td><del>".$price."</del>    -" . $discount. "% <br>".$discountPrice."</td>";
                     }
                     echo "<td>" . $component['quantity'] . "</td>";
-                    echo "<td><img src='" . $component['defaultImage'] . "' alt='" . $component['name'] . "'></td>";
+                    echo "<td><img src='" . $component['image'] . "' alt='" . $component['name'] . "'></td>";
                     echo "<td><button onclick='removeFromCart(".$component['ID'].")'>Rimuovi dal carrello</button></td>";
                     echo "</tr>";
                 }

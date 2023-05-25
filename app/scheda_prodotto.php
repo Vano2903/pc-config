@@ -110,9 +110,11 @@ session_start();
         echo "<div><p>Non ci sono specifiche tecniche per questo componente</p></div>";
     }
     ?>
-  </div>
 
-  <?php
+
+  </div>
+  
+  <?
   if (isUserLoggedIn() && $availability == 1){
     echo "<style>
     button{
@@ -131,8 +133,6 @@ session_start();
 <button onclick='addToCart(".$id.")'>Aggiungi al carrello</button>";
   }
   ?>
-
-
 <script>
     function addToCart(compid){
       //get request to add_to_cart.php
