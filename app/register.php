@@ -7,17 +7,24 @@
   }
 
   include "config.php";
-  if (isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])) {
+  if (
+    isset($_POST["username"]) && 
+    isset($_POST["email"]) && 
+    isset($_POST["password"])&&
+    $_POST["username"]!=""&&
+    $_POST["email"]!=""&&
+    $_POST["password"]!="") {
     $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
     filter_var($username, FILTER_SANITIZE_STRING);
     
-    $email = $_POST["email"];
+
     filter_var($email, FILTER_SANITIZE_EMAIL);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       echo "Email non valida";
       exit();
     }
-    $password = $_POST["password"];
     $passmd5 = md5($password);
 
     //check if user exists

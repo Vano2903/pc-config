@@ -16,7 +16,6 @@
     include "config.php";
     $uuid = $_SESSION["config-id"];
     $componentID = $_GET["cid"];
-    
     //get config id from uuid
     $sql = "SELECT * FROM configs WHERE uuid='" . $uuid . "'";
     $result = $con->query($sql);
@@ -26,7 +25,6 @@
         exit();
     }
     $config = $result->fetch_assoc();
-
     //get component from component id
     $sql = "SELECT * FROM components WHERE ID=?";
     $stmt = $con->prepare($sql);
@@ -41,7 +39,7 @@
     $component = $result->fetch_assoc();
 
     //check if the component is in the config, if yes do nothing
-    $sql = "SELECT * FROM components WHERE ID IN (SELECT componentID FROM configContents WHERE configurationID=" . $config["ID"] . ")";
+    $sql = "SELECT * FROM components WHERE ID IN (SELECT componentID FROM configContents WHERE configID=" . $config["ID"] . ")";
     $result = $con->query($sql);
     if ($result->num_rows > 0){
         foreach($result as $row){
@@ -52,13 +50,12 @@
             }
         }
     }
-
     //check if there is another component of the same category, if yes update it, if no add it
-    $sql = "SELECT * FROM components WHERE categoryID=" . $component["categoryID"] . " AND ID IN (SELECT componentID FROM configContents WHERE configurationID=" . $config["ID"] . ")";
+    $sql = "SELECT * FROM components WHERE categoryID=" . $component["categoryID"] . " AND ID IN (SELECT componentID FROM configContents WHERE configID=" . $config["ID"] . ")";
     $result = $con->query($sql);
     if ($result->num_rows > 0){
         //UPDATE configContents SET componentID=newcompid WHERE configurationID=configid AND componentID=oldcompid
-        $sql="UPDATE configContents SET componentID=" . $componentID . " WHERE configurationID=" . $config["ID"] . " AND componentID=" . $result->fetch_assoc()["ID"];
+        $sql="UPDATE configContents SET componentID=" . $componentID . " WHERE configID=" . $config["ID"] . " AND componentID=" . $result->fetch_assoc()["ID"];
         $result = $con->query($sql);
         if ($con->affected_rows == 0){
             http_response_code(500);
@@ -67,7 +64,7 @@
         }
     }else{
         //INSERT INTO configContents (configurationID, componentID) VALUES (configid, compid)
-        $sql = "INSERT INTO configContents (configurationID, componentID) VALUES (" . $config["ID"] . ", " . $component["ID"] . ")";
+        $sql = "INSERT INTO configContents (configID, componentID) VALUES (" . $config["ID"] . ", " . $component["ID"] . ")";
         $result = $con->query($sql);
         if ($con->affected_rows == 0){
             http_response_code(500);

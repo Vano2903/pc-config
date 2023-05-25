@@ -184,7 +184,7 @@ if(isset($_GET["clean-config"])){
     //add to cart button only if logged in
     //when pressed, redirect to add_to_cart.php
     if(isUserLoggedIn()){
-      echo "<button onclick='addToCart(".$_SESSION['config-id'].")' style='
+      echo "<button onclick='addToCart(`".$_SESSION['config-id']."`)' style='
       display: block; 
       margin: 0 auto; 
       padding: 10px; 
@@ -239,7 +239,7 @@ if(isset($_GET["clean-config"])){
       }
       window.location.href = "configuratore.php?clean-config=true";
     }
-  </s>
+  </script>
 </body>
 
 </html>

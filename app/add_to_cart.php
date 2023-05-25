@@ -65,9 +65,9 @@ if (isset($_GET['compid'])){
     //get all components of the configuration
     $sql = "SELECT * FROM configContents WHERE configID=" . $confID;
     $result = $con->query($sql);
-    if ($result->num_rows > 0) {
+    if ($result->num_rows == 0) {
         http_response_code(400);
-        echo "configuration already in cart";
+        echo "configuration is empty";
         exit();
     }
     //add all components to the cart

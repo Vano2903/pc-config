@@ -43,7 +43,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="./css/default.css">
     <style>
-      form {
+      .form {
         margin-left: 40%;
         margin-right: 40%;
         margin-top: 10%;
@@ -65,15 +65,18 @@
       </div>
       <img src="immagini/kepp-calm.jpg" id="destra">
       <img src="immagini/kepp-calm.jpg" id="sinistra">
-      <form action="login.php" method="post" id="loginForm">
-        <label for="username">Email:</label>
-        <input type="text" id="email" name="email"><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br>
-        <input type="checkbox" onclick="showPassword()">Mostra password<br>
-        <input type="submit" value="login">
+      <div class="form">
+
+        <form action="login.php" method="post" id="loginForm">
+          <label for="username">Email:</label>
+          <input type="text" id="email" name="email"><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password"><br>
+          <input type="checkbox" onclick="showPassword()">Mostra password<br>
+          <input type="submit" value="login">
+        </form>
         <button onclick="window.location.href='register.php'">Registrati</button>
-      </form>
+      </div>
       <script type="text/javascript">
     function showPassword() {
       var passwordInput = document.getElementById("password");
