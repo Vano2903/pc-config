@@ -2,25 +2,33 @@
 
 ## Descrizione pagine
 
-- **add_to_cart.php**: questa pagina, valida che l'utente sia loggato, in caso lo sia prende da sessione l'id dell'utente e l'id della configurazione, copia tutti i componenti della configurazione e li salva nel carrello dell'utente. In caso l'utente non sia loggato, viene reindirizzato alla pagina di login.
+- **add_to_cart.php**: questa pagina, valida che l'utente sia loggato, in caso lo sia prende da sessione l'id dell'utente e l'id della configurazione o del componente (passati per GET).
+  Se il parametro passato è di un componente allora tale componente viene aggiunto al carrello dell'utente (se è già presente invece viene incrementata la quantità di 1).
+  Se il parametro passato è l'uuid di una configurazione allora copia tutti i componenti della configurazione e li salva nel carrello dell'utente. In caso l'utente non sia loggato, viene reindirizzato alla pagina di login.
   add_to_cart non è una pagina html ma una pagina da chiamare a livello api con fetch.
-- **buy.php**: questa pagina è di esempio per quando l'utente vuole comprare quello che c'è nel carrello, in questo caso viene semplicemente svuotato il carrello e inserito un ordine nella tabella ordini.
-  anche questa pagina non ha html ma va chiamata con fetch.
+- **buy.php**: questa pagina crea un ordine a nome dell'utente e lo setta a status pending, prende tutti i componenti del carrello e li mette nella tabella cartContents, poi svuota il carrello.
+  buy non è una pagina html ma una pagina da chiamare a livello api con fetch.
 - **cart.php**: questa pagina mostra il carrello dell'utente con tutti i componenti che ha aggiunto, viene mostrato nome, prezzo (con eventuali sconti) ed immagine del componente, inoltre viene mostrato il prezzo totale del carrello.
   ogni componente può essere rimosso dal carrello tramite il pulsante "rimuovi dal carrello".
+  oppure è possibile acquistare il carrello tramite il pulsante "acquista".
 - **catalogo.php**: la pagina catalogo mostra tutte le categorie di prodotti disponibili, se nell'url si specifica un parametro "cat" con l'id della categoria allora verranno mostrati tutti i prodotti di tale categoria, altrimenti verranno mostrate tutte le categorie.
 - **config.php**: config.php è il file che contiene tutte le informazioni per la connessione al database, viene incluso in tutte le pagine php.
 - **configuratore.php**: configuratore crea un form in base alle categorie disponibili nel database, ogni categoria ha un select con tutti i componenti di quella categoria, quando si crea una configurazione il backend crea un id univoco che identifica una configurazione e viene salvata nel database, salvare questa informazione permette di:
-  - condividere la configurazione con altre persone tramite link catalogo.php?conf=<confID>
+  - condividere la configurazione con altre persone tramite link catalogo.php?conf=<confID> (_non implementato, funziona solo se si inserisce manualmente l'url, ma ci sono dei probelemi che non ho risolto, ad esempio se si condivide una configurazione e la si modifica la modifica viene salvata nella configurazione condivisa e non in una nuova configurazione, che secondo me è sbagliato_)
   - fare login in caso l'utente non sia loggato, se ritorna sulla pagina di configurazione la configurazione non viene persa
   - salvare la configurazione nel carrello
 - **home_page.php**: questa pagina è la home page del sito, richiede al database le news e le offerte che l'admin vuole mostrare e le mostra in due sezioni separate.
 - **login.php**: prende per form email e password dell'utente e valida che siano corrette, in caso lo siano viene salvato l'id dell'utente sulla sessione e viene reindirizzato alla home page, altrimenti viene mostrato un messaggio di errore.
 - **logout.php**: svuota la sessione e reindirizza alla home page in automatico dopo 5 secondi.
 - **navbar.php**: questa pagina contiene la navbar del sito, viene inclusa in tutte le pagine, mostra la sezione di login in caso l'utente non sia loggato altrimenti mostra la sezione utente.
+- **order.php**: la pagina ordine mostra le informazioni di un ordine e permette all'utente di completare il pagamento in caso in cui l'ordine sia in stato pending
 - **pagina_di_presentazione.php**: questa pagina mostra una breve presentazione dell'azienda.
+- **pay.php**: questa pagina prende l'utente dalla sessione e l'id dell'ordine per parametro GET e setta l'ordine in stato paid, questa pagina è un mock del pagamento, non fa nulla, setta solo lo stato dell'ordine.
+da chiama a livello api con fetch.
 - **register.php**: questa pagina permette all'utente di registrarsi, richiede un username, email e password (con richiesta di verifica password), se l'utente inserisce dati validi viene creato un nuovo utente nel database e viene automaticamente loggato, altrimenti viene mostrato un messaggio di errore.
+- **removeFromCart.php**: remove from cart rimuove un componente dal carrello
 - **scheda_prodotto.php**: questa pagina mostra le informazioni di un prodotto, viene mostrato il nome, la descrizione, il prezzo (con eventuali sconti), l'immagine e le informazioni definite sul database.
+permette all'utente di aggiungere un prodotto sul carrello (solo se è disponbilie).
 - **session.php**: session.php contiene tutte le funzioni per gestire la sessione, viene incluso in tutte le pagine.
 - **update_config.php**: questa pagina aggiorna la configurazione sul database (viene chiamata ogni volta che l'utente cambia select in configuratore.php).
   prende l'id della configurazione della sessione e l'id del componente da aggiungere per GET, controlla che l'id di configurazione e l'id del componente siano validi, se lo sono allora prende la categoria del componente e controlla se nella configurazione c'è già un altro componente della stessa categoria, se c'è allora il vecchio componente della stessa categoria viene sovrascritto del nuovo altrimenti viene semplicemente aggiunti un nuovo record.

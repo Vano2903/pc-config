@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(isset($_GET["clean-config"])){
+  unset($_SESSION["config-id"]);
+  echo "<script type='text/javascript'>location.href = './configuratore.php';</script>";
+  exit();
+}
 ?>
 <html>
 
@@ -94,7 +99,7 @@ session_start();
       };
       xhttp.open("GET", "update_config.php?cid=" + val, true);
       xhttp.send();
-      console.log("done");
+      console.log("update request sent");
     }
   </script>
   <div class="box">
@@ -109,8 +114,6 @@ session_start();
   <br/><br/><br/>
     <?php
     include "config.php";
-    echo $_SESSION['config-id']."<br/>";
-    echo "id:".$_SESSION['ID'];
     $sql = "SELECT * FROM categories";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
@@ -135,11 +138,31 @@ session_start();
       echo "<h1><b>Nessuna categoria trovata, contattare l'amministratore del sito.</b></h1>";
     }
 
-    if(isset($_SESSION['config-id'])){
-      $uuid = $_SESSION['config-id'];
+    if(isset($_SESSION['config-id']) || $_GET['cid']){
+      $uuid = "";
+      if(isset($_GET['cid'])){
+        $uuid=$_GET['cid'];
+      }else{
+        $uuid = $_SESSION['config-id'];
+      }
       echo "<script>console.log('".$uuid."');</script>";
-      $sql = "SELECT * FROM configurations WHERE uuid='" . $uuid."'";
-      $result = $con->query($sql);
+      $sql = "SELECT * FROM configs WHERE uuid=?";
+      $stmt = $con->prepare($sql);
+      $stmt->bind_param("s", $uuid);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      if ($result->num_rows == 0){
+        echo "<script>console.log('config ".$uuid." not found');</script>";
+        //if the cid is set then redirect to configuratore.php as the session might be valid
+        //if the cid is not set it means that the session had an invalid config, so unset it and redirect to configuratore.php
+        if (isset($_GET['cid'])){
+          echo "<script>window.location.href='configuratore.php';</script>";
+        }else{
+          unset($_SESSION['config-id']);
+          echo "<script>window.location.href='configuratore.php';</script>";
+        }
+      }
+
       $confID = $result->fetch_assoc()['ID'];
       echo "<script>console.log('".$confID."');</script>";
       //get all components of the configuration
@@ -154,16 +177,14 @@ session_start();
     }else{
       $_SESSION['config-id']=uniqid();
       $uuid = $_SESSION['config-id'];
-      $sql = "INSERT INTO configurations (uuid) VALUES ('" . $uuid . "')";
+      $sql = "INSERT INTO configs (uuid) VALUES ('" . $uuid . "')";
       $con->query($sql);
-      $confID = $con->insert_id;
-      
     }
 
     //add to cart button only if logged in
     //when pressed, redirect to add_to_cart.php
     if(isUserLoggedIn()){
-      echo "<button onclick='addToCart()' style='
+      echo "<button onclick='addToCart(".$_SESSION['config-id'].")' style='
       display: block; 
       margin: 0 auto; 
       padding: 10px; 
@@ -189,7 +210,7 @@ session_start();
       cursor: pointer;
       ' onclick="cleanConfig()">Pulisi la configurazione</button>
   <script>
-    function addToCart(){
+    function addToCart(confid){
       //get request to add_to_cart.php
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
@@ -206,7 +227,7 @@ session_start();
           alert("error nel aggiungere al carrello: " + this.responseText);
         }
       };
-      xhttp.open("GET", "add_to_cart.php", true);
+      xhttp.open("GET", "add_to_cart.php?confid="+confid, true);
       xhttp.send();
       console.log("request sent");
     }
@@ -216,8 +237,9 @@ session_start();
       for (let i = 0; i < selects.length; i++){
         selects[i].selectedIndex = 0;
       }
+      window.location.href = "configuratore.php?clean-config=true";
     }
-  </script>
+  </s>
 </body>
 
 </html>

@@ -74,12 +74,13 @@ session_start();
         exit();
     }
     $row = $result->fetch_assoc();
+    $availability = $row['availability'];
     echo "<h1>" . $row['name'] . "</h1><br><hr><br>";
     echo "<div><img src='" . $row['defaultImage'] . "' alt='".$row['name']."'></div>";
     echo "<br>";
     echo "<div><p>Marca: " . $row['brandName'] . "</p></div>";
     echo "<div><p>Descrizione: " . $row['description'] . "</p></div>";
-    if($row['availability'] == 1){
+    if($availability == 1){
         if ($row['discountPercentage'] == 0){
             echo "<div><p>Prezzo: " . $row['price'] . "</p></div>";
         }else{
@@ -96,7 +97,7 @@ session_start();
     }
     echo "<br>";
     //get components info
-    $sql = "select * from componentsInfo where componentID=".$id.";";
+    $sql = "SELECT * FROM componentsInfo WHERE componentID=".$id.";";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         echo "<div><p>Specifiche tecniche:</p></div>";
@@ -109,6 +110,52 @@ session_start();
         echo "<div><p>Non ci sono specifiche tecniche per questo componente</p></div>";
     }
     ?>
+  </div>
+
+  <?php
+  if (isUserLoggedIn() && $availability == 1){
+    echo "<style>
+    button{
+      background-color: rgb(0, 180, 251);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+    button:hover{
+      background-color: rgb(0, 150, 251);
+    }  
+    </style>  
+<button onclick='addToCart(".$id.")'>Aggiungi al carrello</button>";
+  }
+  ?>
+
+
+<script>
+    function addToCart(compid){
+      //get request to add_to_cart.php
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          //redirect to user.php
+          // window.location.href = "user.php";
+          console.log("ok")
+        }else if(this.readyState == 4 && this.status == 401){
+          //redirect to login.php
+          // window.location.href = "login.php";
+          console.log("not auth")
+        }else if(this.readyState == 4 && this.status == 400){
+          //redirect to user.php
+          alert("error nel aggiungere al carrello: " + this.responseText);
+        }
+      };
+      xhttp.open("GET", "add_to_cart.php?compid="+compid, true);
+      xhttp.send();
+      console.log("request sent");
+    }
+  </script>
 </body>
 
 </html>

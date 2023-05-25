@@ -18,7 +18,7 @@
     $componentID = $_GET["cid"];
     
     //get config id from uuid
-    $sql = "SELECT * FROM configurations WHERE uuid='" . $uuid . "'";
+    $sql = "SELECT * FROM configs WHERE uuid='" . $uuid . "'";
     $result = $con->query($sql);
     if ($result->num_rows == 0){
         http_response_code(400);
