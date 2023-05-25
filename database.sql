@@ -7,53 +7,86 @@ CREATE TABLE IF NOT EXISTS categories(
     PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 INSERT INTO categories (name, defaultImage, isConfigurationRequired)
-VALUES ('Processori', 'cpu.png', 1),
-    ('Schede Madri', 'motherboard.png', 1),
-    ('Schede Video', 'gpu.png', 1),
-    ('Memorie RAM', 'ram.png', 1),
-    ('Alimentatori', 'psu.png', 1),
-    ('Archiviazione', 'storage.png', 1),
-    ('Case', 'case.png', 1),
-    ('Dissipatori', 'cooler.png', 1);
+VALUES (
+        'Processori',
+        'immagini/category_cpu.png',
+        1
+    ),
+    (
+        'Schede Madri',
+        'immagini/category_motherboard.png',
+        1
+    ),
+    (
+        'Schede Video',
+        'immagini/category_gpu.png',
+        1
+    ),
+    (
+        'Memorie RAM',
+        'immagini/category_ram.png',
+        1
+    ),
+    (
+        'Alimentatori',
+        'immagini/category_psu.png',
+        1
+    ),
+    (
+        'Archiviazione',
+        'immagini/category_storage.png',
+        1
+    ),
+    (
+        'Case',
+        'immagini/category_case.png',
+        1
+    ),
+    (
+        'Dissipatori',
+        'immagini/category_cooler.png',
+        1
+    );
 ---
 CREATE TABLE IF NOT EXISTS brands(
     ID INT auto_increment NOT NULL,
     categoryID INT NOT NULL,
     name VARCHAR(50) NOT NULL,
+    defaultImage VARCHAR(100) NOT NULL,
     PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
-INSERT INTO brands (categoryID, name)
-VALUES (1, "intel"),
-    (1, "amd"),
-    (2, "asus"),
-    (2, "msi"),
-    (2, "gigabyte"),
-    (2, "asrock"),
-    (3, "asus"),
-    (3, "amd"),
-    (3, "msi"),
-    (3, "gigabyte"),
-    (3, "asrock"),
-    (4, "corsair"),
-    (4, "g.skill"),
-    (4, "kingston"),
-    (4, "crucial"),
-    (5, "corsair"),
-    (5, "evga"),
-    (5, "seasonic"),
-    (5, "be quiet!"),
-    (6, "samsung"),
-    (6, "seagate"),
-    (6, "western digital"),
-    (6, "crucial"),
-    (7, "corsair"),
-    (7, "nzxt"),
-    (7, "thermaltake"),
-    (7, "cooler master"),
-    (8, "corsair"),
-    (8, "nzxt"),
-    (8, "be quiet!"),
-    (8, "noctua");
+INSERT INTO brands (categoryID, name, defaultImage)
+VALUES (1, "intel", "immagini/brand_intel.png"),
+    (1, "amd", "immagini/brand_amd.png"),
+    (2, "asus", "immagini/brand_asus.png"),
+    (2, "msi", "immagini/brand_msi.png"),
+    (2, "gigabyte", "immagini/brand_gigabyte.png"),
+    (2, "asrock", "immagini/brand_asrock.png"),
+    (3, "asus", "immagini/brand_asus.png"),
+    (3, "amd", "immagini/brand_amd.png"),
+    (3, "msi", "immagini/brand_msi.png"),
+    (3, "gigabyte", "immagini/brand_gigabyte.png"),
+    (3, "asrock", "immagini/brand_asrock.png"),
+    (4, "corsair", "immagini/brand_corsair.png"),
+    (4, "g.skill", "immagini/brand_gskill.png"),
+    (4, "kingston", "immagini/brand_kingston.png"),
+    (4, "crucial", "immagini/brand_crucial.png"),
+    (5, "corsair", "immagini/brand_corsair.png"),
+    (5, "evga", "immagini/brand_evga.png"),
+    (5, "seasonic", "immagini/brand_seasonic.png"),
+    (5, "be quiet!", "immagini/brand_bequiet.png"),
+    (6, "samsung", "immagini/brand_samsung.png"),
+    (6, "seagate", "immagini/brand_seagate.png"),
+    (6, "western digital", "immagini/brand_wd.png"),
+    (6, "crucial", "immagini/brand_crucial.png"),
+    (7, "corsair", "immagini/brand_corsair.png"),
+    (7, "nzxt", "immagini/brand_nzxt.png"),
+    (7, "thermaltake", "immagini/brand_tt.png"),
+    (7, "cooler master", "immagini/brand_cm.png"),
+    (8, "corsair", "immagini/brand_corsair.png"),
+    (8, "nzxt", "immagini/brand_nzxt.png"),
+    (8, "be quiet!", "immagini/brand_bequiet.png"),
+    (8, "noctua", "immagini/brand_noctua.png");
 ---
 CREATE TABLE IF NOT EXISTS components(
     ID INT auto_increment NOT NULL,
@@ -315,29 +348,53 @@ CREATE TABLE IF NOT EXISTS users(
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(320) NOT NULL,
     password CHAR(32) NOT NULL,
+    isAdmin SMALLINT DEFAULT 0,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 ---
-CREATE TABLE IF NOT EXISTS cart(
+CREATE TABLE IF NOT EXISTS cartContents(
     ID INT auto_increment NOT NULL,
     userID INT NOT NULL,
-    cartStatus VARCHAR(20) NOT NULL,
-    configurationID INT NOT NULL,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    componentID INT NOT NULL,
+    quantity INT DEFAULT 1,
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+---
+CREATE TABLE IF NOT EXISTS configs(
+    ID INT auto_increment NOT NULL,
+    uuid VARCHAR(36) NOT NULL,
+    UNIQUE(uuid),
     PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 ---
 CREATE TABLE IF NOT EXISTS configContents(
     ID INT auto_increment NOT NULL,
-    configurationID INT NOT NULL,
+    configID INT NOT NULL,
     componentID INT NOT NULL,
     quantity INT DEFAULT 1,
     PRIMARY KEY (ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 ---
+CREATE TABLE IF NOT EXISTS orders(
+    ID INT auto_increment NOT NULL,
+    userID INT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+---
+CREATE TABLE IF NOT EXISTS ordersContents(
+    ID INT auto_increment NOT NULL,
+    orderID INT NOT NULL,
+    componentID INT NOT NULL,
+    quantity INT DEFAULT 1,
+    PRIMARY KEY(ID)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+---
 CREATE TABLE IF NOT EXISTS offers(
     ID INT auto_increment NOT NULL,
+    title VARCHAR(100) NOT NULL,
     componentID INT NOT NULL,
     PRIMARY KEY(ID)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
@@ -359,9 +416,3 @@ VALUES (
         "immagini/4070.jpg",
         "https://www.tomshw.it/hardware/la-geforce-rtx-4070-potrebbe-arrivare-ad-aprile/"
     );
-CREATE TABLE IF NOT EXISTS configurations(
-    ID INT auto_increment NOT NULL,
-    uuid VARCHAR(36) NOT NULL,
-    UNIQUE(uuid),
-    PRIMARY KEY(ID)
-) ENGINE = InnoDB DEFAULT CHARSET = latin1;
